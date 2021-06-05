@@ -1,4 +1,5 @@
 import 'package:admin/constants.dart';
+import 'package:admin/responsive.dart';
 import 'package:admin/screens/main/components/header.dart';
 import 'package:admin/screens/main/components/my_files.dart';
 import 'package:admin/screens/main/components/recent_files.dart';
@@ -25,16 +26,24 @@ class DashboardScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       MyFiles(),
-                      SizedBox(height: defaultPadding,),
+                      SizedBox(
+                        height: defaultPadding,
+                      ),
                       RecentFiles(),
+                      if (Responsive.isMobile(context))
+                        SizedBox(height: defaultPadding),
+                      if (Responsive.isMobile(context))
+                        StorageDetails(),
                     ],
                   ),
                 ),
-                SizedBox(width: defaultPadding),
-                Expanded(
-                  flex: 2,
-                  child: StorageDetails(),
-                ),
+                if (!Responsive.isMobile(context))
+                  SizedBox(width: defaultPadding),
+                if (!Responsive.isMobile(context))
+                  Expanded(
+                    flex: 2,
+                    child: StorageDetails(),
+                  ),
               ],
             ),
           ],

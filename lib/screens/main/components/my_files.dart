@@ -1,5 +1,7 @@
 import 'package:admin/constants.dart';
 import 'package:admin/models/MyFiles.dart';
+import 'package:admin/responsive.dart';
+import 'package:admin/screens/main/components/file_info_card_gridview.dart';
 import 'package:admin/screens/main/components/file_info_card.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +10,8 @@ class MyFiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Column(
       children: [
         Row(
@@ -21,7 +25,7 @@ class MyFiles extends StatelessWidget {
               style: TextButton.styleFrom(
                 padding: EdgeInsets.symmetric(
                   horizontal: defaultPadding * 1.5,
-                  vertical: defaultPadding,
+                  vertical: defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
                 ),
               ),
               onPressed: () {},
@@ -33,19 +37,15 @@ class MyFiles extends StatelessWidget {
         SizedBox(
           height: defaultPadding,
         ),
-        GridView.builder(
-          shrinkWrap: true,
-          itemCount: demoMyFiels.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: defaultPadding,
-            childAspectRatio: 1.2,
+        Responsive(
+          mobile: FileInfoCardGridView(
+            crossAxisCount: size.width < 650 ? 2 : 4,
+            childAspectRatio: size.width < 650 ? 1.3 : 1,
           ),
-          itemBuilder: (context, index) {
-            return FileInfoCard(
-              info: demoMyFiels[index],
-            );
-          },
+          tablet: FileInfoCardGridView(),
+          desktop: FileInfoCardGridView(
+            childAspectRatio: size.width < 1400 ? 1.1 : 1.4,
+          ),
         ),
       ],
     );
