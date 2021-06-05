@@ -11,7 +11,7 @@ class ProfileCard extends StatelessWidget {
       margin: EdgeInsets.only(left: defaultPadding),
       padding: EdgeInsets.symmetric(
         horizontal: defaultPadding,
-        vertical: defaultPadding / 2,
+        vertical: defaultPadding / 1.1,
       ),
       decoration: BoxDecoration(
         color: secondaryColor,
@@ -20,10 +20,7 @@ class ProfileCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.asset(
-            'assets/images/profile_pic.png',
-            height: 38,
-          ),
+          Icon(Icons.person, color: Colors.white,),
           if (!Responsive.isMobile(context))
             Padding(
               padding:
